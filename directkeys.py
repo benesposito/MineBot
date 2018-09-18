@@ -26,29 +26,39 @@ NP_6 = 0x4D
 NP_8 = 0x48
 
 def mouseDown(button='left'):
-    x = 50
-    y = 50
-    win32api.SetCursorPos((x,y))
+    x = 1050
+    y = 1050
+    #win32api.SetCursorPos((x,y))
 
     if button == 'left':
         win32api.mouse_event(win32con.MOUSEEVENTF_LEFTDOWN,x,y,0,0)
-
     elif button == 'right':
         win32api.mouse_event(win32con.MOUSEEVENTF_RIGHTDOWN,x,y,0,0)
 
-def mouseUp():
-    x = 50
-    y = 50
+def mouseUp(button='left'):
+    x = int(1920 / 2)
+    y = int(1080 / 2)
+    #win32api.SetCursorPos((x,y))
+
+    if button == 'left':
+        win32api.mouse_event(win32con.MOUSEEVENTF_LEFTUP,x,y,0,0)
+    elif button == 'right':
+        win32api.mouse_event(win32con.MOUSEEVENTF_RIGHTUP,x,y,0,0)
+
+def rotate(deg):
+    x = int(1920 / 2)
+    y = int(1080 / 2)
     win32api.SetCursorPos((x,y))
+
+    win32api.mouse_event(win32con.MOUSEEVENTF_LEFTDOWN,x,y,0,0)
     win32api.mouse_event(win32con.MOUSEEVENTF_LEFTUP,x,y,0,0)
-    win32api.mouse_event(win32con.MOUSEEVENTF_RIGHTUP,x,y,0,0)
+
 
 def getKey(key):
     return win32api.GetAsyncKeyState(ord(key))
 
 def keyPWM(key):
-    print(int(time.time()))
-    if int(time.time()) % 2 != 0:
+    if int(time.time() * 10) % 10 < 5:
         PressKey(key)
     else:
         ReleaseKey(key)
@@ -87,7 +97,6 @@ class Input(ctypes.Structure):
 # Actuals Functions
 
 def PressKey(hexKeyCode):
-    print('key pressed: ' + str(hexKeyCode))
     extra = ctypes.c_ulong(0)
     ii_ = Input_I()
     ii_.ki = KeyBdInput( 0, keyCodes[hexKeyCode], 0x0008, 0, ctypes.pointer(extra) )

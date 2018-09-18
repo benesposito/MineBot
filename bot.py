@@ -52,6 +52,7 @@ cv2.imshow('screen', screen)
 lava_spasm = True
 debounce = time.time()
 last_time = time.time()
+last_lava_seen = 0
 while True:
     if not paused:
         screen = grab_screen(region=(0, 35, 854, 510))
@@ -100,15 +101,18 @@ while True:
         # cv2.drawContours(screen, filtered_iron_contours, -1, (158, 174, 223), 2)
 
         cv2.imshow('screen', screen)
-        cv2.imshow('threshold', diamond_threshold)
 
-        if len(filtered_lava_contours) > 0:
-            mouseUp()
+        if len(filtered_lava_contours) > 0 and time.time() - last_lava_seen < 2:
+            mouseUp('left')
             ReleaseKey('SHIFT')
             ReleaseKey('W')
             PressKey('S')
             mouseDown('right')
+            last_lava_seen = time.time()
+        elif time.time() - last_lava_seen < 3:
+            rotate('right')
         else:
+            mouseUp('right')
             ReleaseKey('S')
             keyPWM('W')
             PressKey('SHIFT')
@@ -125,6 +129,7 @@ while True:
             ReleaseKey('S')
             ReleaseKey('SHIFT')
             mouseUp()
+            mouseUp('right')
 
     if cv2.waitKey(5) & 0xFF == ord('q'):
         cv2.destroyAllWindows()
