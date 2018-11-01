@@ -1,5 +1,5 @@
-# I, Ben Esposito, copied this from Sentdex's https://github.com/Sentdex/pygta5, who I believe copied it elsewhere. If there are any problems with this, please notify my
-# and I will immediately take it down.
+# I, Ben Esposito, copied this from Sentdex's https://github.com/Sentdex/pygta5, who I believe copied it elsewhere.
+# If there are any problems with this, please notify meand I will immediately take it down.
 
 # Done by Frannecklp
 
