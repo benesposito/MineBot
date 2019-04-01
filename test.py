@@ -1,18 +1,12 @@
-from directkeys import *
+import win32com.client
+oAutoItX = win32com.client.Dispatch( "AutoItX3.Control")
 
-paused = True
-debounce = 0
+# oAutoItX.Opt("WinTitleMatchMode", 2) #Match text anywhere in a window title
 
-while True:
-    if not paused:
-        print('play')
-        #PressKey('S')
-        mouseUp('right')
-        mouseDown('right')
-
-    if getKey('Z') and getKey('X') and time.time() - debounce > 0.5:
-        paused = not paused
-        debounce = time.time()
-        if paused:
-            ReleaseKey('S')
-            mouseUp('right')
+list = oAutoItX.WinList()
+print(list)
+#
+# width = oAutoItX.WinGetClientSizeWidth("Minecraft")
+# height = oAutoItX.WinGetClientSizeHeight("Minecraft")
+#
+# print('{}, {}'.format(width, height))

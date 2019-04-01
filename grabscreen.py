@@ -1,5 +1,6 @@
-# I, Ben Esposito, copied this from Sentdex's https://github.com/Sentdex/pygta5, who I believe copied it elsewhere. If there are any problems with this, please notify my
+# I, Ben Esposito, copied this from Sentdex's https://github.com/Sentdex/pygta5, who I believe copied it from elsewhere. If there are any problems with this, please notify my
 # and I will immediately take it down.
+# Slightly modified by Ben Esposito
 
 # Done by Frannecklp
 
@@ -16,10 +17,7 @@ def grab_screen(region=None):
             width = x2 - left + 1
             height = y2 - top + 1
     else:
-        width = win32api.GetSystemMetrics(win32con.SM_CXVIRTUALSCREEN)
-        height = win32api.GetSystemMetrics(win32con.SM_CYVIRTUALSCREEN)
-        left = win32api.GetSystemMetrics(win32con.SM_XVIRTUALSCREEN)
-        top = win32api.GetSystemMetrics(win32con.SM_YVIRTUALSCREEN)
+        return grab_screen(region=(0, 0, win32api.GetSystemMetrics(0), win32api.GetSystemMetrics(1)))
 
 
     hwindc = win32gui.GetWindowDC(hwin)
